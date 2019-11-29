@@ -21,10 +21,15 @@ class Play
         @word = @handler.random_word
         @current_game = ['_'] * @word.length
         @lives = @word.length+5
+        @finished = false
     end
 
     def lives
         @lives
+    end
+
+    def finished
+        @finished
     end
 
     def print_game # prints current game state 
@@ -65,6 +70,10 @@ class Play
         if success == false
             @lives -= 1
         end
+
+        if @lives == 0
+            finished = true;
+        end
     end    
 end
 
@@ -73,5 +82,5 @@ play = Play.new
 loop do
     play.print_game
     play.guess_letter
-    break if play.lives == 0
+    break if(play.lives == 0 || play.finished == true) 
 end
